@@ -2,10 +2,10 @@ version: '2.4'
 
 services:
   app:
+    image: myapp:local
     build:
       context: .
       dockerfile: Dockerfile
-    image: myapp:local
     restart: unless-stopped
     environment:
       - NODE_ENV=production
@@ -19,6 +19,8 @@ services:
     networks:
       - appnet
     volumes:
+      - ./output:/app/output
+      - ./input:/app/input
       - app_logs:/app/logs
     logging:
       driver: "json-file"
@@ -51,4 +53,3 @@ networks:
 volumes:
   pgdata:
   app_logs:
-

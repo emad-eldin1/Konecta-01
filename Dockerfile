@@ -9,9 +9,12 @@ RUN npm ci --production=false || npm install --production=false
 # Copy source code
 COPY . .
 
-# Create non-root user for security
-RUN addgroup -S appgroup && adduser -S appuser -G appgroup
-USER appuser
+# Create output folder and set permissions
+RUN mkdir -p /app/output && \
+    chown -R node:node /app/output
+
+# Switch to non-root user
+USER node
 
 ENV NODE_ENV=production
 ENV PORT=3000
