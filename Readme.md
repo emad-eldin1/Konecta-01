@@ -142,3 +142,4 @@ $DOCKER_COMPOSE
 ```
 ----
 ![alt text](images/3.png)
+![alt text](images/6.png)
