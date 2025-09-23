@@ -1,0 +1,55 @@
+name: CI/CD with Terraform & Ansible
+
+on:
+  push:
+    branches:
+      - main   # change to master if your repo default branch is master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build & Push Docker image
+        run: |
+          docker build -t emadeldin1/konecta_01:latest .
+          docker push emadeldin1/konecta_01:latest
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Init
+        working-directory: ./terraform
+        run: terraform init
+
+      - name: Terraform Apply
+        working-directory: ./terraform
+        run: terraform apply -auto-approve
+
+      - name: Extract EC2 Public IP
+        id: tf-output
+        working-directory: ./terraform
+        run: echo "EC2_IP=$(terraform output -raw public_ip)" >> $GITHUB_ENV
+
+      - name: Run Ansible Playbook
+        uses: dawidd6/action-ansible-playbook@v4
+        with:
+          playbook: ansible/playbook.yml
+          inventory: "${{ env.EC2_IP }},"
+          key: ${{ secrets.SERVER_SSH_KEY }}   # private key (.pem) content
+          user: ubuntu

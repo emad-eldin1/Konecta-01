@@ -5,9 +5,9 @@ services:
     image: emadeldin1/konecta_01:latest
     restart: unless-stopped
     environment:
-      - NODE_ENV=production
-      - PORT=3000
-      - DATABASE_URL=postgresql://emad:emad@postgres:5432/bookstore
+      NODE_ENV: production
+      PORT: 3000
+      DATABASE_URL: postgresql://emad:emad@postgres:5432/bookstore
     ports:
       - "3000:3000"
     depends_on:

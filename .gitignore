@@ -1,0 +1,108 @@
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+/dist
+/build
+
+# env
+.env
+.env.local
+.env.*.local
+.secrets.env
+
+# Docker
+docker-compose.override.yml
+/*.tgz
+
+# Logs
+logs/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Certificates / keys
+*.pem
+*.key
+*.crt
+
+# IDE / JetBrains
+out/
+
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+dist/
+build/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+*.secrets.env
+
+# Logs
+logs/
+*.log
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage / test output
+coverage/
+.nyc_output/
+
+# Docker
+docker-compose.override.yml
+*.tgz
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor / IDE
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+out/
+
+# Certificates / keys
+*.pem
+*.key
+*.crt
+
+# Images / media (to avoid pushing device screenshots/photos)
+*.jpg
+*.jpeg
+*.gif
+*.bmp
+*.tiff
+*.ico
+*.svg
+*.webp
+
+# Archives
+*.zip
+*.tar
+*.tar.gz
+*.rar
+*.7z
+
+# Misc
+*.bak
+*.swp
+*.tmp
+
+

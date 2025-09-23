@@ -11,12 +11,6 @@ provider "aws" {
   region = "us-west-2"
 }
 
-# Use AWS key pair (you will upload your .pem public key manually to AWS)
-# resource "aws_key_pair" "deployer" {
-  # key_name   = "konecta-key"
-  # public_key = file("~/.ssh/konecta_aws.pub") # <-- generate locally & upload
-# }
-
 resource "aws_security_group" "app_sg" {
   name        = "app-sg"
   description = "Allow SSH, HTTP, and app traffic"
@@ -54,9 +48,9 @@ resource "aws_security_group" "app_sg" {
 }
 
 resource "aws_instance" "app_server" {
-  ami           = "ami-03aa99ddf5498ceb9" # Ubuntu 24.04 LTS us-east-1
+  ami           = "ami-03aa99ddf5498ceb9" # Ubuntu 24.04 LTS (adjust region if needed)
   instance_type = "t2.micro"
-  key_name   = "konecta-key"
+  key_name      = "konecta-key"           # Upload AWS .pem public key manually
   vpc_security_group_ids = [aws_security_group.app_sg.id]
 
   tags = {

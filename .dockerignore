@@ -1,0 +1,68 @@
+# Node deps & cache
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+dist
+build
+coverage
+.nyc_output
+
+# Environment files (never copy secrets into Docker image)
+.env
+.env.local
+.env.*.local
+*.secrets.env
+
+# Git
+.git
+.gitignore
+
+# Docker
+docker-compose.override.yml
+Dockerfile*
+
+# Logs
+logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor / IDE
+.vscode
+.idea
+*.sublime-workspace
+*.sublime-project
+out
+
+# Certificates / keys
+*.pem
+*.key
+*.crt
+
+# Images / media
+
+
+*.jpg
+*.jpeg
+*.gif
+*.bmp
+*.tiff
+*.ico
+*.svg
+*.webp
+
+# Archives
+*.zip
+*.tar
+*.tar.gz
+*.rar
+*.7z
+
+# Temp / misc
+*.bak
+*.swp
+*.tmp
+
