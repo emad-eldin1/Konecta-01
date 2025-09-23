@@ -11,8 +11,13 @@ provider "aws" {
   region = "us-west-2"
 }
 
+# random suffix        unique
+resource "random_id" "sg_suffix" {
+  byte_length = 2
+}
+
 resource "aws_security_group" "app_sg" {
-  name        = "app-sg"
+  name        = "app-sg-${random_id.sg_suffix.hex}"
   description = "Allow SSH, HTTP, and app traffic"
 
   ingress {
@@ -48,9 +53,9 @@ resource "aws_security_group" "app_sg" {
 }
 
 resource "aws_instance" "app_server" {
-  ami           = "ami-03aa99ddf5498ceb9" # Ubuntu 24.04 LTS (adjust region if needed)
+  ami           = "ami-03aa99ddf5498ceb9" # Ubuntu 24.04 LTS
   instance_type = "t2.micro"
-  key_name      = "konecta-key"           # Upload AWS .pem public key manually
+  key_name      = "konecta-key"           
   vpc_security_group_ids = [aws_security_group.app_sg.id]
 
   tags = {
