@@ -3,7 +3,7 @@ name: CI/CD with Terraform & Ansible
 on:
   push:
     branches:
-      - main   
+      - main   # غيرها لو الـ default branch عندك master
 
 jobs:
   build:
@@ -35,7 +35,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}   
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}   # مهم لو انت شغال ب temporary creds
           aws-region: us-west-2
 
       - name: Setup Terraform
@@ -57,10 +57,15 @@ jobs:
           echo "EC2_IP=$ip" >> $GITHUB_ENV
           echo "Extracted EC2 IP: $ip"
 
+      - name: Setup SSH key
+        run: |
+          echo "${{ secrets.SERVER_SSH_KEY }}" > .ansible_key
+          chmod 400 .ansible_key
+
       - name: Run Ansible Playbook
         uses: dawidd6/action-ansible-playbook@v4
         with:
           playbook: ansible/playbook.yml
-          inventory: "${{ env.EC2_IP }}"
-          key: ${{ secrets.SERVER_SSH_KEY }}
+          inventory: "${{ env.EC2_IP }},"
+          key: .ansible_key
           options: "-u ubuntu"
