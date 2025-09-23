@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  app:
+    image: emadeldin1/konecta_01:latest
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - DATABASE_URL=postgresql://emad:emad@postgres:5432/bookstore
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:15-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: bookstore
+      POSTGRES_USER: emad
+      POSTGRES_PASSWORD: emad
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

@@ -8,17 +8,26 @@
       "Fri": "Empty",
       "Sat": "Empty",
       "Sun": "Empty"
+    },
+    "Week 29": {
+      "Mon": "Sick",
+      "Tue": "Vacation",
+      "Wed": "Empty",
+      "Thu": "Empty",
+      "Fri": "Empty",
+      "Sat": "Empty",
+      "Sun": "Empty"
     }
   },
   "emp_2": {
     "Week 1": {
-      "Mon": "Empty",
+      "Mon": "Office",
       "Tue": "Empty",
       "Wed": "Empty",
       "Thu": "Remote",
-      "Fri": "Empty",
-      "Sat": "Empty",
-      "Sun": "Empty"
+      "Fri": "Office",
+      "Sat": "Remote",
+      "Sun": "Weekend"
     },
     "Week 2": {
       "Mon": "Empty",
@@ -33,8 +42,8 @@
   "emp_1": {
     "Week 1": {
       "Mon": "Sick",
-      "Tue": "Empty",
-      "Wed": "Empty",
+      "Tue": "Office",
+      "Wed": "Remote",
       "Thu": "Empty",
       "Fri": "Empty",
       "Sat": "Empty",
@@ -45,7 +54,7 @@
     "Week 1": {
       "Mon": "Empty",
       "Tue": "Empty",
-      "Wed": "Empty",
+      "Wed": "Weekend",
       "Thu": "Empty",
       "Fri": "Casual",
       "Sat": "Annual",
@@ -54,7 +63,7 @@
   },
   "emp_5": {
     "Week 1": {
-      "Mon": "Vacation",
+      "Mon": "Casual",
       "Tue": "Empty",
       "Wed": "Remote",
       "Thu": "Empty",

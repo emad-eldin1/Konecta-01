@@ -1,0 +1,49 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: Update apt packages
+      apt:
+        update_cache: yes
+        force_apt_get: yes
+
+    - name: Install Docker
+      apt:
+        name: docker.io
+        state: present
+
+    - name: Install Docker Compose
+      apt:
+        name: docker-compose
+        state: present
+
+    - name: Ensure Docker service is running
+      service:
+        name: docker
+        state: started
+        enabled: true
+
+    - name: Create app directory
+      file:
+        path: /opt/konecta
+        state: directory
+
+    - name: Copy docker-compose.yml
+      copy:
+        src: docker-compose.yml
+        dest: /opt/konecta/docker-compose.yml
+
+    - name: Run app with Docker Compose
+      shell: docker-compose up -d
+      args:
+        chdir: /opt/konecta
+
+    - name: Check app health
+      uri:
+        url: http://localhost:3000/health
+        method: GET
+        status_code: 200
+      register: result
+      retries: 10
+      delay: 5
+      until: result.status == 200
