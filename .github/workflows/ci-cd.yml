@@ -61,6 +61,6 @@ jobs:
         uses: dawidd6/action-ansible-playbook@v4
         with:
           playbook: ansible/playbook.yml
-          inventory: "${{ env.EC2_IP }},"
+          inventory: "${{ env.EC2_IP }}"
           key: ${{ secrets.SERVER_SSH_KEY }}
           options: "-u ubuntu"
