@@ -3,7 +3,7 @@ name: CI/CD with Terraform & Ansible
 on:
   push:
     branches:
-      - main   # غيرها لو الـ default branch عندك master
+      - main
 
 jobs:
   build:
@@ -35,7 +35,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}   # مهم لو انت شغال ب temporary creds
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
           aws-region: us-west-2
 
       - name: Setup Terraform
@@ -62,10 +62,23 @@ jobs:
           echo "${{ secrets.SERVER_SSH_KEY }}" > .ansible_key
           chmod 600 .ansible_key
 
+      - name: Wait for SSH to be ready
+        run: |
+          for i in {1..10}; do
+            if ssh -o StrictHostKeyChecking=no -i .ansible_key ubuntu@${{ env.EC2_IP }} "echo 'SSH ready'"; then
+              echo "✅ SSH is ready"
+              exit 0
+            fi
+            echo "⏳ Waiting for SSH..."
+            sleep 10
+          done
+          echo "❌ SSH not ready after waiting"
+          exit 1
+
       - name: Run Ansible Playbook
         uses: dawidd6/action-ansible-playbook@v4
         with:
           playbook: ansible/playbook.yml
-          inventory: "${{ env.EC2_IP }}"
+          inventory: "${{ env.EC2_IP }},"
           key: .ansible_key
-          options: "-u ubuntu"
+          options: "-u ubuntu -vvvv"
