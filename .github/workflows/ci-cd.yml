@@ -75,9 +75,9 @@ jobs:
 
       - name: Run Ansible Playbook
         uses: dawidd6/action-ansible-playbook@v4
+        env:
+          ANSIBLE_HOST_KEY_CHECKING: "False"
         with:
           playbook: ansible/playbook.yml
           inventory: .ansible_inventory
           key: .ansible_key
-          options: |
-            --ssh-common-args= -o StrictHostKeyChecking=no
