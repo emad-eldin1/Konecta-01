@@ -57,16 +57,7 @@ jobs:
           echo "EC2_IP=$ip" >> $GITHUB_ENV
           echo "Extracted EC2 IP: $ip"
 
-      - name: Setup SSH key
-        run: |
-          echo "${{ secrets.SERVER_SSH_KEY }}" > .ansible_key
-          chmod 600 .ansible_key
-
-      - name: Create Ansible Inventory
-        run: |
-          echo "[webserver]" > .ansible_inventory
-          echo "${{ env.EC2_IP }} ansible_user=ubuntu" >> .ansible_inventory
-          cat .ansible_inventory
+      # Remove the step that creates the .ansible_key file
 
       - name: Wait for SSH to be ready
         run: |
@@ -79,5 +70,7 @@ jobs:
           ANSIBLE_HOST_KEY_CHECKING: "False"
         with:
           playbook: ansible/playbook.yml
-          inventory: .ansible_inventory
-          key: .ansible_key
+          inventory: |
+            [webserver]
+            ${{ env.EC2_IP }} ansible_user=ubuntu
+          key: ${{ secrets.SERVER_SSH_KEY }}
