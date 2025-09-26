@@ -80,4 +80,4 @@ jobs:
           inventory: .ansible_inventory
           key: .ansible_key
           options: |
-            --ssh-common-args='-o StrictHostKeyChecking=no'
+            --ssh-common-args= -o StrictHostKeyChecking=no
