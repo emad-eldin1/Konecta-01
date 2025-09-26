@@ -4,7 +4,7 @@ This project demonstrates how to containerize a **Node.js + PostgreSQL** applica
 
 The documentation below covers **all important files, their purpose, and best practices And All The Required Images At The End OF Document**.
 
-![example workflow](https://github.com/emad-eldin1/Konecta-01/actions/workflows/git-Action.yml/badge.svg)
+![example workflow](https://github.com/emad-eldin1/Konecta-01/actions/workflows/ci-cd.yml/badge.svg)
 
 ##  How to Run the App Locally  
 
