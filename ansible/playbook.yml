@@ -37,7 +37,7 @@
     - name: Run app with Docker Compose
       shell: docker-compose up -d
       args:
-        chdir: /opt/konecta
+        chdir: /opt/konecta=
 
     - name: Check app health
       uri:
